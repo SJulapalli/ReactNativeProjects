@@ -1,23 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, Image, ScrollView, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { TextInput, Button, StyleSheet, Text, View, Image, ScrollView, useWindowDimensions, TouchableOpacity } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
+import { Hoverable, Pressable } from 'react-native-web-hover'
+
 
 function HomeScreen({ navigation }) {
   const window = useWindowDimensions();
 
   return (
-    <ScrollView id="Parent View" style={{maxHeight: 2729}}>
-      <View styles={{flexDirection: 'row'}}>
-        <Button title="Home" disabled={true} onPress={() => navigation.navigate('Home')} />
-        <Button title="About Us" onPress={() => navigation.navigate('About')} />
-        <Button title="Apply" onPress={() => navigation.navigate('Apply')} />
+    <ScrollView id="Parent View">
+      <View style={[styles.dark, {flexDirection: 'row'}]}>
+        <TouchableOpacity disabled={true} style={[styles.headerButton, {width: window.width / 3, height: 50, backgroundColor: '#496F7D'}]} onPress={() => navigation.navigate('Home')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.headerButton, {width: window.width / 3}]} onPress={() => navigation.navigate('About')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>About Us</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.headerButton, {width: window.width / 3}]} onPress={() => navigation.navigate('Apply')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>Apply</Text>
+        </TouchableOpacity>
       </View>
       
-      <View style={[styles.dark, {justifyContent: 'center', height: 506, flexDirection: 'row'}]}>
-        <Text id="Page Header" style={{fontSize: 40, color: 'white', alignSelf: 'center'}}>This is what we do</Text>
-        <Image source={require('./assets/people_working.png')} style={{width: 600, height: 400, alignSelf: 'center'}} />
+      <View style={[styles.dark, {justifyContent: 'center', height: 435, flexDirection: 'row'}]}>
+        <Text id="Page Header" style={{fontSize: 40, color: 'white', alignSelf: 'center', textAlign: 'center', marginLeft: 10, marginRight: 10}}>This is what we do</Text>
+        <Image source={require('./assets/people_working.png')} style={{width: window.width * 3 / 4, height: window.height * 4 / 9, maxWidth: 600, maxHeight: 900, alignSelf: 'center', marginRight: 10}} />
       </View>
 
       <View style={[styles.light, {height: 669, paddingRight: 40}]}>
@@ -54,14 +62,14 @@ function HomeScreen({ navigation }) {
         </Text>
       </View>
 
-      <View style={styles.contacts}>
-        <Text style={{color: 'white', fontSize: 30, padding: 10, paddingBottom: 30}}>Contact Us</Text>
+      <View style={[styles.contacts, {height: 130}]}>
+        <Text style={{color: 'white', fontSize: 30, padding: 10, paddingBottom: 20}}>Contact Us</Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image source={require('./assets/email.png')} style={{width: 33, height: 33}} />
-          <Text style={{color: 'white', fontSize: 20, paddingRight: 100}}>umd.dreamx@gmail.com</Text>            
+          <Text style={{color: 'white', fontSize: 20, paddingRight: 100}}> umd.dreamx@gmail.com</Text>            
           
           <Image source={require('./assets/instagram.png')} style={{width: 30, height: 30}} />
-          <Text style={{color: 'white', fontSize: 20}}>@umd.dreamx</Text>
+          <Text style={{color: 'white', fontSize: 20}}> @umd.dreamx</Text>
         </View>
       </View>
     </ScrollView>
@@ -71,47 +79,103 @@ function HomeScreen({ navigation }) {
 function AboutPage({ navigation }) {
   const [hours, setHours] = React.useState(0);
   const [workDone, setWorkDone] = React.useState(false);
-  return (
-    <View id="Parent View">
-      <View styles={{flexDirection: 'row'}}>
-        <Button title="Home" onPress={() => navigation.navigate('Home')} />
-        <Button title="About Us" disabled={true} onPress={() => navigation.navigate('About')} />
-        <Button title="Apply" onPress={() => navigation.navigate('Apply')} />
-      </View>
+  const window = useWindowDimensions();
 
-      <View style={styles.dark}>
-        <p id="par">Suhas made this website. {myFunction("Suhas", 19)}. <br></br>
-                    Suhas has worked for {hours} hours today. <br></br>
-        </p>
+  return (
+    <View id="Parent View" style={{maxHeight: 1305}}>
+      <View style={[styles.dark, {flexDirection: 'row'}]}>
+        <TouchableOpacity style={[styles.headerButton, {width: window.width / 3, height: 50}]} onPress={() => navigation.navigate('Home')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity disabled={true} style={[styles.headerButton, {width: window.width / 3, backgroundColor: '#496F7D'}]} onPress={() => navigation.navigate('About')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>About Us</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.headerButton, {width: window.width / 3}]} onPress={() => navigation.navigate('Apply')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>Apply</Text>
+        </TouchableOpacity>
       </View>
-      <Button title={"Click to increase hours worked"}
-              onPress={() => {setHours(hours + 1)}}
-              disabled={workDone}></Button>
-      <Button title={"Press to decrease hours worked"}
-              onPress={() => {setHours(hours - 1)}}
-               disabled={workDone}></Button>
-       <Button id={"ligma"} title={workDone? "Work Completed": hours >= 4? "Click to complete work" : "Work not yet complete"}
-              color={hours >= 4? 'green': 'red'}
-              disabled={workDone}
-              onPress={() => {if (hours >= 4) {
-                                setWorkDone(true);
-                              }}}>
-      </Button>
+      
+      <Text style={{fontSize: 35, color: '#496F7D', alignSelf: 'center', padding: 15, paddingBottom: 40}}>About Us</Text>
+
+      <View style={{flexDirection: 'row'}}>
+        <Text style={{color: '#496F7D', fontSize: 18, paddingBottom: 30, paddingTop: 10}}>
+        {`          Lorem ipsum dolor sit amet, 
+          consectetur adipiscing elit, sed do 
+          eiusmod tempor incididunt ut labore
+          et dolore magna aliqua. Ut enim 
+          ad minimveniam, quis nostrud 
+          exercitation ullamco laboris nisi
+          ut aliquip ex ea commodo`}
+        </Text>
+      </View>
+      <View style={{flexDirection: 'row'}}>
+        <Text style={{color: '#496F7D', fontSize: 18, paddingBottom: 25}}>
+        {`          Lorem ipsum dolor sit amet, 
+          consectetur adipiscing elit, sed do 
+          eiusmod tempor incididunt ut labore
+          et dolore magna aliqua. Ut enim 
+          ad minimveniam, quis nostrud 
+          exercitation ullamco laboris nisi
+          ut aliquip ex ea commodo`}
+        </Text>
+      </View>
+      
+      <View style={[styles.contacts, {height: 320}]}>
+        <Text style={{color: 'white', fontSize: 30, padding: 10, paddingBottom: 20}}>Contact Us</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image source={require('./assets/email.png')} style={{width: 33, height: 33}} />
+          <Text style={{color: 'white', fontSize: 20, paddingRight: 100}}> umd.dreamx@gmail.com</Text>            
+          
+          <Image source={require('./assets/instagram.png')} style={{width: 30, height: 30}} />
+          <Text style={{color: 'white', fontSize: 20}}> @umd.dreamx</Text>
+        </View>
+      </View>
     </View>
   );
 }
 
-function myFunction(name, age) {
-  return `${name} is ${age} years old!`;
-}
-
 function ApplyPage({ navigation }) {
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const window = useWindowDimensions();
+
   return (
     <ScrollView>
-      <View styles={{flexDirection: 'row'}}>
-        <Button title="Home" onPress={() => navigation.navigate('About')} />
-        <Button title="About Us" onPress={() => navigation.navigate('About')} />
-        <Button title="Apply" disabled={true} onPress={() => navigation.navigate('Apply')} />
+      <View style={[styles.dark, {flexDirection: 'row'}]}>
+        <TouchableOpacity style={[styles.headerButton, {width: window.width / 3, height: 50}]} onPress={() => navigation.navigate('Home')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.headerButton, {width: window.width / 3}]} onPress={() => navigation.navigate('About')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>About Us</Text>
+        </TouchableOpacity>
+        <TouchableOpacity disabled={true} style={[styles.headerButton, {width: window.width / 3, backgroundColor: '#496F7D'}]} onPress={() => navigation.navigate('Apply')}>
+          <Text style={{alignSelf: 'center', color: 'white'}}>Apply</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={{fontSize: 35, color: '#496F7D', alignSelf: 'center', textAlign: 'center',
+                    padding: 15, paddingBottom: 10}}>
+                      Considering applying? Fill out the fields below and we'll reach out!
+      </Text>
+
+      <View style={{padding: 30}}>
+        <TextInput style={styles.fields} placeholder={`First \& Middle Name`} onChangeText={text => setFirstName(text)} />
+        <TextInput style={styles.fields} placeholder={`Last Name`} onChangeText={text => setLastName(text)} />
+        <TextInput style={styles.fields} placeholder={`Email`} onChangeText={text => setEmail(text)} />
+        <TextInput multiline={true} style={[styles.fields, {paddingBottom: 400}]} placeholder={`Message (Optional)`} onChangeText={text => setMessage(text)} />
+      </View>
+
+      <View style={[styles.contacts, {height: 130}]}>
+        <Text style={{color: 'white', fontSize: 30, padding: 10, paddingBottom: 20}}>Contact Us</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image source={require('./assets/email.png')} style={{width: 33, height: 33}} />
+          <Text style={{color: 'white', fontSize: 20, paddingRight: 100}}> umd.dreamx@gmail.com</Text>            
+          
+          <Image source={require('./assets/instagram.png')} style={{width: 30, height: 30}} />
+          <Text style={{color: 'white', fontSize: 20}}> @umd.dreamx</Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -126,11 +190,6 @@ function MyApp() {
         initialRouteName='Home'
         screenOptions={{
           headerShown: false,
-          /* headerStyle: {
-            backgroundColor: "#496F7D"
-          },
-          headerTintColor: 'white',
-          headerTitle: "", */
         }}>
         <Stack.Screen
           name="Home"
@@ -166,6 +225,21 @@ const styles = StyleSheet.create({
     color: 'white',
     alignItems: 'center',
   },
+
+  fields: {
+    padding: 10,
+    marginBottom: 20,
+    borderColor: '#707070',
+    borderWidth: .1,
+    fontSize: 24
+  },
+
+  headerButton: {
+    backgroundColor: '#3B5A65',
+    borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
 
 export default MyApp;
