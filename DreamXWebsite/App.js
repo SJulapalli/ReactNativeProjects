@@ -24,16 +24,17 @@ function HomeScreen({ navigation }) {
       </View>
       
       <View style={[styles.dark, {justifyContent: 'center', height: 435, flexDirection: 'row'}]}>
-        <Text id="Page Header" style={{fontSize: 40, color: 'white', alignSelf: 'center', textAlign: 'center', marginLeft: 10, marginRight: 10}}>This is what we do</Text>
-        <Image source={require('./assets/people_working.png')} style={{width: window.width * 3 / 4, height: window.height * 4 / 9, maxWidth: 600, maxHeight: 900, alignSelf: 'center', marginRight: 10}} />
+        <Text id="Page Header" style={{fontSize: 40, color: 'white', alignSelf: 'center', textAlign: 'center', margin: window.width/20}}>This is what we do</Text>
+        <Image source={require('./assets/people_working.png')} style={{width: window.width * 3 / 4, height: window.height * 4 / 9, maxWidth: 600, maxHeight: 900, alignSelf: 'center', marginRight: window.width / 15}} />
       </View>
 
-      <View style={[styles.light, {height: 669, paddingRight: 40}]}>
-        <Text id="Offer Header" style={{alignSelf: 'center', fontSize: 35, padding: 40, paddingBottom: 20}}>What We Offer</Text>
+      <View style={[styles.light, {marginBottom: 40}]}>
+        <Text id="Offer Header" style={{alignSelf: 'center', fontSize: 35, margin: 40}}>What we Offer</Text>
         <View id="Padding" style={{paddingBottom: 50}}>
           <View id="Underline" style={{backgroundColor: '#35BBA8', alignSelf: 'center', width: 196, height: 5}}></View>
         </View>
-        <Text id="Offer1" style={{color: "#496F7D", alignSelf: 'flex-start', fontSize: 18}}>
+        <Text id="Offer1" style={{color: "#496F7D", 
+        marginLeft: window.width <= 750 ? 40 : window.width <= 900 ? 40 + window.width / 10: window.width <= 1200 ? 40 + window.width / 9 : 100 + window.width * .175, fontSize: 18}}>
           {`          Lorem ipsum dolor sit amet, 
           consectetur adipiscing elit, sed do 
           eiusmod tempor incididunt ut labore
@@ -42,7 +43,8 @@ function HomeScreen({ navigation }) {
           exercitation ullamco laboris nisi
           ut aliquip ex ea commodo`}
         </Text>
-        <Text id="Offer1" style={{color: "#496F7D", alignSelf: 'flex-end', fontSize: 18}}>
+        <Text id="Offer1" style={{color: "#496F7D", alignSelf: 'flex-end', 
+        marginRight: window.width <= 750 ? 40 : window.width <= 900 ? 40 + window.width / 10: window.width <= 1200 ? 40 + window.width / 9 : 100 + window.width * .175, fontSize: 18}}>
           {`          Lorem ipsum dolor sit amet, 
           consectetur adipiscing elit, sed do 
           eiusmod tempor incididunt ut labore
@@ -51,7 +53,8 @@ function HomeScreen({ navigation }) {
           exercitation ullamco laboris nisi
           ut aliquip ex ea commodo`}
         </Text>
-        <Text id="Offer1" style={{color: "#496F7D", alignSelf: 'flex-start', fontSize: 18}}>
+        <Text id="Offer1" style={{color: "#496F7D", 
+        marginLeft: window.width <= 750 ? 40 : window.width <= 900 ? 40 + window.width / 10: window.width <= 1200 ? 40 + window.width / 9 : 100 + window.width * .175, fontSize: 18}}>
           {`          Lorem ipsum dolor sit amet, 
           consectetur adipiscing elit, sed do 
           eiusmod tempor incididunt ut labore
@@ -109,7 +112,7 @@ function AboutPage({ navigation }) {
         </Text>
       </View>
       <View style={{flexDirection: 'row'}}>
-        <Text style={{color: '#496F7D', fontSize: 18, paddingBottom: 25}}>
+        <Text style={{color: '#496F7D', fontSize: 18, marginBottom: 25}}>
         {`          Lorem ipsum dolor sit amet, 
           consectetur adipiscing elit, sed do 
           eiusmod tempor incididunt ut labore
