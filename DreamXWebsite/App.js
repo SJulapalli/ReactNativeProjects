@@ -2,9 +2,36 @@ import { StatusBar } from 'expo-status-bar';
 import { TextInput, Button, StyleSheet, Text, View, Image, ScrollView, useWindowDimensions, TouchableOpacity } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
-import { Hoverable, Pressable } from 'react-native-web-hover'
+import { createStackNavigator } from '@react-navigation/stack';
+import { initializeApp } from 'firebase/app';
+import { doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, getDoc, addDoc } from 'firebase/firestore/lite';
+import { getAnalytics } from 'firebase/analytics';
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDWwltK77Jzc9aUW9YiBUPCqZA_KFVfm_c",
+  authDomain: "dreamx-website.firebaseapp.com",
+  projectId: "dreamx-website",
+  storageBucket: "dreamx-website.appspot.com",
+  messagingSenderId: "750047116875",
+  appId: "1:750047116875:web:0ed68b4bcfd4d92a9c57ce",
+  measurementId: "G-RFZVKLG9PQ"
+}
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+const dbRef = collection(db, "Applicants");
+
+function update(fname, lname, email, msg) {
+  var data = {
+    first_name: fname,
+    last_name: lname,
+    email: email,
+    message: msg,
+  };
+  addDoc(dbRef, data).then(docRef => {console.log("Document has been added successfully")}).catch(error => {console.log(error)});
+}
 
 function HomeScreen({ navigation }) {
   const window = useWindowDimensions();
@@ -29,7 +56,7 @@ function HomeScreen({ navigation }) {
       </View>
 
       <View style={[styles.light, {marginBottom: 40}]}>
-        <Text id="Offer Header" style={{alignSelf: 'center', fontSize: 35, margin: 40}}>What we Offer</Text>
+        <Text id="Offer Header" style={{alignSelf: 'center', fontSize: 35, margin: 40}}>{window.width}</Text>
         <View id="Padding" style={{paddingBottom: 50}}>
           <View id="Underline" style={{backgroundColor: '#35BBA8', alignSelf: 'center', width: 196, height: 5}}></View>
         </View>
@@ -70,7 +97,7 @@ function HomeScreen({ navigation }) {
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image source={require('./assets/email.png')} style={{width: 33, height: 33}} />
           <Text style={{color: 'white', fontSize: 20, paddingRight: 100}}> umd.dreamx@gmail.com</Text>            
-          
+
           <Image source={require('./assets/instagram.png')} style={{width: 30, height: 30}} />
           <Text style={{color: 'white', fontSize: 20}}> @umd.dreamx</Text>
         </View>
@@ -80,8 +107,6 @@ function HomeScreen({ navigation }) {
 }
 
 function AboutPage({ navigation }) {
-  const [hours, setHours] = React.useState(0);
-  const [workDone, setWorkDone] = React.useState(false);
   const window = useWindowDimensions();
 
   return (
@@ -168,6 +193,9 @@ function ApplyPage({ navigation }) {
         <TextInput style={styles.fields} placeholder={`Last Name`} onChangeText={text => setLastName(text)} />
         <TextInput style={styles.fields} placeholder={`Email`} onChangeText={text => setEmail(text)} />
         <TextInput multiline={true} style={[styles.fields, {paddingBottom: 400}]} placeholder={`Message (Optional)`} onChangeText={text => setMessage(text)} />
+        <TouchableOpacity onPress={() => update(firstName, lastName, email, message)} style={{height: 35, width: window.width / 2, alignSelf: 'center', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0ECDEB', borderColor: '#707070', borderWidth: .1, borderRadius: 3}}>
+          <Text style={{color: 'white', fontSize: 24}}>Submit</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={[styles.contacts, {height: 130}]}>
